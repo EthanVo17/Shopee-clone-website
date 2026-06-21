@@ -4,6 +4,9 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 
 import routes from './routes/index';
+import { connectDB } from './config';
+
+connectDB();
 
 dotenv.config();
 
