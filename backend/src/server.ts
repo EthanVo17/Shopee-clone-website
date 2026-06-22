@@ -1,16 +1,17 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import dotenv from 'dotenv';
 
 import routes from './routes/index';
 import { connectDB } from './config';
 
 connectDB();
 
-dotenv.config();
-
 const PORT = process.env.PORT || 3000;
+
 
 const app = express();
 

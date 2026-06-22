@@ -5,36 +5,35 @@ import { ProductType } from '../types';
 const ProductModel = new mongoose.Schema<ProductType>({
   name: {
     type: String,
-    require: [true, 'Please enter a name for the product.'],
+    required: [true, 'Please enter a name for the product.'],
     trim: true,
-    MaxLength: [120, 'Name do not longer than 120 keywords'],
+    maxlength: [120, 'Name do not longer than 120 keywords'],
   },
 
   description: {
     type: String,
-    require: [true, 'Please enter a name for the description'],
+    required: [true, 'Please enter a description for the product'],
   },
 
   price: {
     type: Number,
-    require: [true, 'Please enter a price for the product'],
+    required: [true, 'Please enter a price for the product'],
     min: [0, 'The price do not less than zero'],
   },
 
   discountPrice: {
     type: Number,
     validate: {
-      validator: (price: number, prevPrice: number) => {
-        return price < prevPrice;
+      validator: function (this: { price: number }, value: number) {
+        return value < this.price;
       },
-
       message: 'The discounted price must be less than the original price.',
     },
   },
 
   countInStock: {
     type: Number,
-    require: [true, 'Please enter a stock in the storage for the product'],
+    required: [true, 'Please enter a stock in the storage for the product'],
     min: [0, 'The stock do not less than zero'],
     default: 0,
   },
