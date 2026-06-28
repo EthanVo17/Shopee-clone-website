@@ -30,8 +30,10 @@ const getSecrets = () => {
 };
 
 const generateAccessToken = (user: UserType) => {
+  const payload = { _id: getUserIdentifier(user) };
+
   const { SecretSecretkey, AccessExpire } = getSecrets();
-  const AccessToken = jwt.sign(getUserIdentifier(user), SecretSecretkey, {
+  const AccessToken = jwt.sign(payload, SecretSecretkey, {
     expiresIn: AccessExpire,
   });
 
@@ -39,9 +41,11 @@ const generateAccessToken = (user: UserType) => {
 };
 
 const generateRefreshToken = (user: UserType) => {
+  const payload = { _id: getUserIdentifier(user) };
+
   const { RefreshSecretKey, RefreshExpire } = getSecrets();
 
-  const RefreshToken = jwt.sign(getUserIdentifier(user), RefreshSecretKey, {
+  const RefreshToken = jwt.sign(payload, RefreshSecretKey, {
     expiresIn: RefreshExpire,
   });
 

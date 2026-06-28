@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
-import { ProductModel } from '../models';
+import { Product } from '../models';
 import { AppControllerType, ProductType } from '../types';
-
-// Đăng ký model một lần duy nhất ở module level
-const Product = mongoose.model<ProductType>('Product', ProductModel);
 
 const CreateProduct: AppControllerType = async (req, res) => {
   try {

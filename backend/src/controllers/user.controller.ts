@@ -11,7 +11,7 @@ const Register: AppControllerType = async (req, res, next) => {
 
     if (!name || !email || !password) {
       res.status(400).json('Please enter the field');
-      throw new Error('Please enter the field');
+      return;
     }
 
     const userExist = await UserModel.findOne({ email });
@@ -44,7 +44,7 @@ const Register: AppControllerType = async (req, res, next) => {
   }
 };
 
-const Login: AppControllerType = async (req, res, next) => {
+const Login: AppControllerType = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -56,15 +56,19 @@ const Login: AppControllerType = async (req, res, next) => {
       return;
     }
 
-    generateAccessToken(user);
-    generateRefreshToken(user);
+    const AccessToken = generateAccessToken(user);
+    const RefreshToken = generateRefreshToken(user);
 
     const { password: _, ...userInfo } = user.toObject();
 
-    res.status(201).json({ message: `Welcome back ${userInfo.name}`, userInfo });
+    res.status(200).json({
+      message: `Welcome back ${userInfo.name}`,
+      userInfo,
+      AccessToken,
+      RefreshToken,
+    });
   } catch (error) {
-    res.status(400).json('Fail to login');
-    next();
+    res.status(400).json({ message: 'Fail to login' });
   }
 };
 
