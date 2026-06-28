@@ -1,8 +1,7 @@
 import express from 'express';
 
-import { AppControllerType } from './AppControllerType';
-
 export type AppMiddlewareType = (
-  req: AppControllerType,
-  res: express.Response
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
 ) => void | Promise<void>;

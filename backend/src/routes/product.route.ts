@@ -7,6 +7,6 @@ const router = express.Router();
 //public
 
 //private
-router.post('/', CreateProduct);
+router.post('/create', CreateProduct);
 
 export default router;

@@ -1,1 +1,6 @@
-export { default as jwtGenerate } from './jwt';
+export {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyAccessToken,
+  verifyRefreshToken,
+} from './jwt';

@@ -2,6 +2,14 @@ import jwt from 'jsonwebtoken';
 
 import { UserType } from '../types';
 
+const getUserIdentifier = (user: UserType) => {
+  if (!user._id) {
+    throw new Error('User id is missing');
+  }
+
+  return user._id.toString();
+};
+
 const getSecrets = () => {
   const SecretSecretkey = process.env.JWT_SECRET;
   const RefreshSecretKey = process.env.JWT_REFRESH_SECRET;
@@ -22,9 +30,8 @@ const getSecrets = () => {
 };
 
 const generateAccessToken = (user: UserType) => {
-  const payload = { _id: user._id };
   const { SecretSecretkey, AccessExpire } = getSecrets();
-  const AccessToken = jwt.sign(String(payload._id), SecretSecretkey, {
+  const AccessToken = jwt.sign(getUserIdentifier(user), SecretSecretkey, {
     expiresIn: AccessExpire,
   });
 
@@ -32,10 +39,9 @@ const generateAccessToken = (user: UserType) => {
 };
 
 const generateRefreshToken = (user: UserType) => {
-  const payload = { _id: user._id };
   const { RefreshSecretKey, RefreshExpire } = getSecrets();
 
-  const RefreshToken = jwt.sign(String(payload._id), RefreshSecretKey, {
+  const RefreshToken = jwt.sign(getUserIdentifier(user), RefreshSecretKey, {
     expiresIn: RefreshExpire,
   });
 
@@ -52,4 +58,4 @@ const verifyRefreshToken = (token: string) => {
   return jwt.verify(token, RefreshSecretKey);
 };
 
-export default { generateAccessToken, generateRefreshToken, verifyAccessToken, verifyRefreshToken };
+export { generateAccessToken, generateRefreshToken, verifyAccessToken, verifyRefreshToken };
