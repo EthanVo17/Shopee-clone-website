@@ -1,10 +1,13 @@
-import mongoose from 'mongoose';
+import slugify from 'slugify';
+
 import { Product } from '../models';
-import { AppControllerType, ProductType } from '../types';
+import { AppControllerType } from '../types';
 
 const CreateProduct: AppControllerType = async (req, res) => {
   try {
     const { name, description, price, countInStock, category, brand, slug } = req.body;
+
+    const slugName = slugify(name, { lower: true, strict: true, locale: 'vi' });
 
     const newProduct = await Product.create({
       name,
@@ -13,7 +16,7 @@ const CreateProduct: AppControllerType = async (req, res) => {
       countInStock,
       category,
       brand,
-      slug,
+      slug: slugName,
     });
 
     res.status(201).json({
@@ -21,7 +24,7 @@ const CreateProduct: AppControllerType = async (req, res) => {
       data: newProduct,
     });
   } catch (err) {
-    res.status(400).json({ message: 'Create new product failed', error: err });
+    res.status(500).json({ message: 'Create new product failed', error: err });
   }
 };
 
