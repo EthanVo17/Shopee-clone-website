@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { CreateProduct } from '../controllers';
+import { CreateProduct, getProduct } from '../controllers';
 
 const router = express.Router();
 
@@ -8,5 +8,6 @@ const router = express.Router();
 
 //private
 router.post('/create', CreateProduct);
+router.get('/', getProduct);
 
 export default router;
