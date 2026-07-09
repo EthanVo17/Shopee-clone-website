@@ -2,7 +2,7 @@ import express from 'express';
 
 import { homeController } from '../controllers';
 
-const router = express.Router();
+const router: express.Router = express.Router();
 
 router.post('/', homeController);
 

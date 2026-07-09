@@ -10,5 +10,6 @@ interface AuthenticatedRequest extends express.Request {
 
 export type AuthController = (
   req: AuthenticatedRequest,
-  res: express.Response
+  res: express.Response,
+  next: express.NextFunction
 ) => void | Promise<void>;
