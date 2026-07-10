@@ -63,6 +63,6 @@ const VoucherSchema = new mongoose.Schema<VoucherType>(
   }
 );
 
-const VoucherModel = mongoose.model<VoucherType>('Voucher', VoucherSchema);
+const VoucherModel = mongoose.model<VoucherType>('vouchers', VoucherSchema);
 
 export default VoucherModel;

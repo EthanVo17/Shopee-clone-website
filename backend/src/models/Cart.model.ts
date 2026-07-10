@@ -5,7 +5,7 @@ import { CartItemsType, CartType } from '../types';
 const CartItemsChema = new mongoose.Schema<CartItemsType>({
   productID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
+    ref: 'products',
     required: true,
   },
 
@@ -29,7 +29,7 @@ const CartChema = new mongoose.Schema<CartType>(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'users',
       required: true,
       unique: true,
     },

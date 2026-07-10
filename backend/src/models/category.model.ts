@@ -20,7 +20,7 @@ const CategorySchema = new mongoose.Schema<CategoryType>(
 
     parent_Id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: 'category',
       default: null,
     },
   },

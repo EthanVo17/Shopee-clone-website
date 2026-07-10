@@ -1,8 +1,8 @@
 import slugify from 'slugify';
 import express from 'express';
 
-import { Product, CategoryModel } from '../models';
-import { AppControllerType, ProductFilterQuery, ProductType } from '../types';
+import { Product } from '../models';
+import { AppControllerType, ProductFilterQuery } from '../types';
 import mongoose from 'mongoose';
 
 const CreateProduct: AppControllerType = async (req, res) => {
@@ -37,14 +37,6 @@ const CreateProduct: AppControllerType = async (req, res) => {
     res.status(500).json({ message: 'Create new product failed', error: err });
   }
 };
-
-// const getProduct = async (req: express.Request, res: express.Response) => {
-//   try {
-//     res.status(201).json('welcome to product api');
-//   } catch (error) {
-//     res.status(500).json({ message: 'server error', error });
-//   }
-// };
 
 const getProduct = async (
   req: express.Request<{}, {}, {}, ProductFilterQuery>,
@@ -86,7 +78,7 @@ const getProduct = async (
     ]);
 
     res.status(200).json({
-      message: 'Lấy danh sách sản phẩm thành công.',
+      message: 'Get products list successfully.',
       data: products,
       pagination: {
         currentPage: pageNumber,

@@ -6,19 +6,19 @@ const VoucherUsageSchema = new mongoose.Schema<VoucherUsageType>(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'users',
       required: true,
     },
 
     voucherId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Voucher',
+      ref: 'voucher',
       required: true,
     },
 
     orderId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Order',
+      ref: 'orders',
       default: null,
     },
 
@@ -37,6 +37,6 @@ const VoucherUsageSchema = new mongoose.Schema<VoucherUsageType>(
 // Mỗi user chỉ dùng 1 voucher 1 lần
 VoucherUsageSchema.index({ userId: 1, voucherId: 1 }, { unique: true });
 
-const VoucherUsageModel = mongoose.model<VoucherUsageType>('VoucherUsage', VoucherUsageSchema);
+const VoucherUsageModel = mongoose.model<VoucherUsageType>('voucherusages', VoucherUsageSchema);
 
 export default VoucherUsageModel;
