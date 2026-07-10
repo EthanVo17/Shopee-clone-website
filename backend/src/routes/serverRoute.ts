@@ -4,6 +4,6 @@ import { homeController } from '../controllers';
 
 const router: express.Router = express.Router();
 
-router.post('/', homeController);
+router.get('/', homeController);
 
 export default router;

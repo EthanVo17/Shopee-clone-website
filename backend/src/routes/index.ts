@@ -8,9 +8,9 @@ import cartRoute from './cart.route';
 function route(app: express.Application) {
   app.use('/', serverRoute);
 
-  app.use('/api/product', productRoute);
+  app.use('/api/products', productRoute);
 
-  app.use('/api', userRoute);
+  app.use('/api/user', userRoute);
 
   app.use('/api/cart', cartRoute);
 }

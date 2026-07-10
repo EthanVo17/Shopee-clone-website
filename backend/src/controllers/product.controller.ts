@@ -1,13 +1,19 @@
 import slugify from 'slugify';
 import express from 'express';
 
-import { Product } from '../models';
+import { Product, CategoryModel } from '../models';
 import { AppControllerType, ProductFilterQuery, ProductType } from '../types';
 import mongoose from 'mongoose';
 
 const CreateProduct: AppControllerType = async (req, res) => {
   try {
-    const { name, description, price, countInStock, category, brand, slug } = req.body;
+    const { name, description, price, countInStock, category, brand, slug, images, variant } =
+      req.body;
+
+    if (!name || !description || !price || countInStock === undefined || !category || !brand) {
+      res.status(400).json({ message: 'Missing required product fields' });
+      return;
+    }
 
     const slugName = slugify(name, { lower: true, strict: true, locale: 'vi' });
 
@@ -18,7 +24,9 @@ const CreateProduct: AppControllerType = async (req, res) => {
       countInStock,
       category,
       brand,
-      slug: slugName,
+      slug: slug || slugName,
+      images: images || [],
+      variant: variant || [],
     });
 
     res.status(201).json({
@@ -30,20 +38,28 @@ const CreateProduct: AppControllerType = async (req, res) => {
   }
 };
 
+// const getProduct = async (req: express.Request, res: express.Response) => {
+//   try {
+//     res.status(201).json('welcome to product api');
+//   } catch (error) {
+//     res.status(500).json({ message: 'server error', error });
+//   }
+// };
+
 const getProduct = async (
   req: express.Request<{}, {}, {}, ProductFilterQuery>,
   res: express.Response
-): Promise<void> => {
+) => {
   try {
     const { page = '1', limit = '10', category, minPrice, maxPrice, sort, keyword } = req.query;
-    const filter: mongoose.QueryFilter<ProductType> = {};
+    const filter: Record<string, any> = {};
 
     if (keyword) {
       filter.name = { $regex: keyword, $options: 'i' };
     }
 
     if (category) {
-      filter.category ? category : `${category} does not exist`;
+      filter.category = new mongoose.Types.ObjectId(category);
     }
 
     if (minPrice || maxPrice) {
@@ -80,7 +96,8 @@ const getProduct = async (
       },
     });
   } catch (error) {
-    res.status(400).json({ message: 'error', error });
+    console.error('[getProduct Error]:', error);
+    res.status(400).json({ message: error instanceof Error ? error.message : 'error', error });
   }
 };
 

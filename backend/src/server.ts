@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan';
 
 import routes from './routes/index';
 import { connectDB } from './config';
@@ -17,6 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(morgan('combined'));
 app.use(
   cors({
     origin: `http://localhost:${PORT}`,

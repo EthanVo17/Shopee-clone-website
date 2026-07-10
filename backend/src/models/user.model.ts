@@ -98,6 +98,6 @@ UserSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-const UserModel = mongoose.model<UserType>('User', UserSchema);
+const UserModel = mongoose.model<UserType>('users', UserSchema);
 
 export default UserModel;

@@ -53,6 +53,6 @@ const CartChema = new mongoose.Schema<CartType>(
   }
 );
 
-const CartModel = mongoose.model<CartType>('Cart', CartChema);
+const CartModel = mongoose.model<CartType>('carts', CartChema);
 
 export default CartModel;

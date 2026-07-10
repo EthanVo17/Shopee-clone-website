@@ -7,10 +7,10 @@ import bcrypt from 'bcryptjs';
 
 const Register: AppControllerType = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, phone } = req.body;
 
-    if (!name || !email || !password) {
-      res.status(400).json('Please enter the field');
+    if (!name || !email || !password || !phone) {
+      res.status(400).json('Please enter the required fields');
       return;
     }
 
@@ -25,6 +25,7 @@ const Register: AppControllerType = async (req, res, next) => {
       name,
       email,
       password,
+      phone,
       role,
     });
 

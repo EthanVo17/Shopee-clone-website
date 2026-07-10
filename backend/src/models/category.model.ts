@@ -30,6 +30,6 @@ const CategorySchema = new mongoose.Schema<CategoryType>(
   }
 );
 
-const CategoryModel = mongoose.model('Category', CategorySchema);
+const CategoryModel = mongoose.model('category', CategorySchema);
 
 export default CategoryModel;

@@ -18,13 +18,13 @@ const addToCart = async (userId: string, productId: string, sku: string, quantit
     throw new Error(`Insufficient stock. Available: ${variant.stock}`);
   }
 
-  let cart = await CartModel.findOne({ userId });
+  let cart = await CartModel.findOne({ user: userId });
   if (!cart) {
     cart = await CartModel.create({ user: userId, items: [] });
   }
 
   const existingItem = cart.items.find((item: any) => {
-    item.productID.toString() === productId && item.sku === sku;
+    return item.productID.toString() === productId && item.sku === sku;
   });
 
   if (existingItem) {
