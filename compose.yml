@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  mongo: 
+    image: mongo:6.0
+    container_name: ecommerce
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./backend/src/config/database/db:/data/db
+    
+  backend: 
+    restart: always
+    build: 
+      context: ./backend
+      dockerfile: DOCKERFILE
+    container_name: backend
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+      - react-express
+  
+  frontend: 
+    build:
+      context: ./frontend
+      dockerfile: DOCKERFILE
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./fronend/app
+      - /app/node_modules
+    restart: always
+    networks:
+      - react-express:
+          driver: bridge
+    depends_on:
+      - backend
