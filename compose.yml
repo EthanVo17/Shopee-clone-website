@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-
   mongo: 
     image: mongo:6.0
+    command: mongod --replSet rs0 --bind_ip_all
     container_name: ecommerce
     ports:
       - "27017:27017"
@@ -11,14 +11,17 @@ services:
       - ./backend/src/config/database/db:/data/db
     
   backend: 
-    restart: always
     build: 
       context: ./backend
       dockerfile: DOCKERFILE
     container_name: backend
+    environment:
+      - PORT={BACKEND_PORT}
+      - MONGO_URI={DB_URI}
     volumes:
       - ./backend:/app
       - /app/node_modules
+    restart: always
     depends_on:
       - mongo
     networks:
@@ -31,7 +34,7 @@ services:
       dockerfile: DOCKERFILE
     container_name: frontend
     ports:
-      - "3000:3000"
+      - "{FRONTEND_PORT}:{FRONTEND_PORT}"
     volumes:
       - ./fronend/app
       - /app/node_modules
@@ -41,3 +44,7 @@ services:
           driver: bridge
     depends_on:
       - backend
+
+networks:
+  react-express:
+  express-mongo:
