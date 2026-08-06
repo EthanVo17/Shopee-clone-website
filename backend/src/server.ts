@@ -6,6 +6,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
+import { setServers } from 'node:dns';
+setServers(['1.1.1.1', '8.8.8.8']);
+
 import routes from './routes/index';
 import { connectDB } from './config';
 

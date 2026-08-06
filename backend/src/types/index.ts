@@ -7,3 +7,5 @@ export type { default as CategoryType } from './category.type';
 export type { Variant } from './Variant.type';
 export type { CartType, CartItemsType } from './Cart.type';
 export type { VoucherType, VoucherUsageType } from './Voucher.type';
+export type { OrderType, OrderItemType } from './OrderType/order.type';
+export type { createOrderType } from './OrderType/createOrder.type';

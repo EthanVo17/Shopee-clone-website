@@ -4,6 +4,7 @@ import serverRoute from './serverRoute';
 import productRoute from './product.route';
 import userRoute from './user.route';
 import cartRoute from './cart.route';
+import orderRoute from './order.route';
 
 function route(app: express.Application) {
   app.use('/', serverRoute);
@@ -13,6 +14,8 @@ function route(app: express.Application) {
   app.use('/api/user', userRoute);
 
   app.use('/api/cart', cartRoute);
+
+  app.use('/api/orders', orderRoute);
 }
 
 export default route;
