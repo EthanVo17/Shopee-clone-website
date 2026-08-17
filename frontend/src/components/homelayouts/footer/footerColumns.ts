@@ -1,8 +1,6 @@
 import {
     faFacebook,
     faInstagram,
-    faYoutube,
-    faTiktok,
     faLinkedin,
 } from '@fortawesome/free-brands-svg-icons';
 
@@ -70,31 +68,19 @@ const socialLinks = [
     {
         icon: faFacebook,
         label: 'Facebook',
-        href: 'https://facebook.com',
+        href: 'https://www.facebook.com/shopeecareers.vn',
         color: '#1877f2',
     },
     {
         icon: faInstagram,
         label: 'Instagram',
-        href: 'https://instagram.com',
+        href: 'https://www.instagram.com/Shopee_VN',
         color: '#e1306c',
-    },
-    {
-        icon: faTiktok,
-        label: 'TikTok',
-        href: 'https://tiktok.com',
-        color: '#000',
-    },
-    {
-        icon: faYoutube,
-        label: 'YouTube',
-        href: 'https://youtube.com',
-        color: '#ff0000',
     },
     {
         icon: faLinkedin,
         label: 'LinkedIn',
-        href: 'https://linkedin.com',
+        href: 'https://www.linkedin.com/company/shopee/',
         color: '#0077b5',
     },
 ];

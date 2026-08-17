@@ -4,19 +4,22 @@ import React from 'react';
 import Link from 'next/link';
 
 import { categories } from './categories';
+import CategoryHeader from './CategoryHeader';
 
 const CategoryGrid: React.FC = () => {
     return (
         <div
             id="category-grid"
-            className="bg-white rounded-sm"
+            className="bg-white rounded-sm mt-[12px] mb-[12px]"
             style={{ boxShadow: '0 1px 4px 0 rgba(0,0,0,0.09)' }}
         >
+            {/* ── Header ── */}
+            <CategoryHeader />
+
+            {/* ── Grid ── */}
             <div
                 className="grid"
-                style={{
-                    gridTemplateColumns: 'repeat(10, 1fr)',
-                }}
+                style={{ gridTemplateColumns: 'repeat(10, 1fr)' }}
             >
                 {categories.map((category, idx) => (
                     <Link
@@ -25,8 +28,12 @@ const CategoryGrid: React.FC = () => {
                         id={`category-${category.slug}`}
                         className="group flex flex-col items-center gap-2 py-5 px-2 cursor-pointer transition-all duration-200"
                         style={{
-                            borderRight: (idx + 1) % 10 !== 0 ? '1px solid #f5f5f5' : 'none',
-                            borderBottom: idx < 10 ? '1px solid #f5f5f5' : 'none',
+                            borderRight:
+                                (idx + 1) % 10 !== 0
+                                    ? '1px solid #f5f5f5'
+                                    : 'none',
+                            borderBottom:
+                                idx < 10 ? '1px solid #f5f5f5' : 'none',
                         }}
                     >
                         <div
@@ -37,7 +44,11 @@ const CategoryGrid: React.FC = () => {
                         </div>
                         <span
                             className="text-center leading-tight transition-colors duration-200 group-hover:text-[#ee4d2d]"
-                            style={{ fontSize: '12px', color: '#333', lineHeight: '1.4' }}
+                            style={{
+                                fontSize: '12px',
+                                color: '#333',
+                                lineHeight: '1.4',
+                            }}
                         >
                             {category.name}
                         </span>

@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBolt, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
 import { FlashProduct } from '@/src/types/flashsaleproduct.type/flashsaleproduct.type';
+
+import FlashSaleHeader from './FlashSaleHeader';
 
 const flashProducts: FlashProduct[] = [
     {
@@ -80,161 +79,15 @@ function formatPrice(price: number): string {
     return price.toLocaleString('vi-VN') + 'đ';
 }
 
-function getEndTime(): Date {
-    const end = new Date();
-    end.setHours(23, 59, 59, 999);
-    return end;
-}
-
-function useCountdown(target: Date) {
-    const calc = useCallback(() => {
-        const diff = target.getTime() - Date.now();
-        if (diff <= 0) return { h: 0, m: 0, s: 0 };
-        const totalSecs = Math.floor(diff / 1000);
-        return {
-            h: Math.floor(totalSecs / 3600),
-            m: Math.floor((totalSecs % 3600) / 60),
-            s: totalSecs % 60,
-        };
-    }, [target]);
-
-    const [time, setTime] = useState(calc);
-
-    useEffect(() => {
-        const id = setInterval(() => setTime(calc()), 1000);
-        return () => clearInterval(id);
-    }, [calc]);
-
-    return time;
-}
-
-function TimeBlock({ value, label }: { value: number; label: string }) {
-    const str = String(value).padStart(2, '0');
-    return (
-        <div className="flex flex-col items-center">
-            <span
-                className="text-white font-bold leading-none px-1.5 py-0.5 rounded"
-                style={{
-                    fontSize: '18px',
-                    background: '#ee4d2d',
-                    minWidth: '28px',
-                    textAlign: 'center',
-                }}
-            >
-                {str}
-            </span>
-            <span
-                style={{ fontSize: '10px', color: '#757575', marginTop: '2px' }}
-            >
-                {label}
-            </span>
-        </div>
-    );
-}
-
-function TimeSeparator() {
-    return (
-        <span
-            className="font-bold"
-            style={{
-                color: '#ee4d2d',
-                fontSize: '18px',
-                paddingBottom: '14px',
-            }}
-        >
-            :
-        </span>
-    );
-}
-
 const FlashSaleSection: React.FC = () => {
-    const endTime = React.useMemo(() => getEndTime(), []);
-    const { h, m, s } = useCountdown(endTime);
-    const [mounted, setMounted] = React.useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
     return (
         <div
             id="flash-sale-section"
-            className="bg-white rounded-sm"
+            className="bg-white rounded-sm mt-4"
             style={{ boxShadow: '0 1px 4px 0 rgba(0,0,0,0.09)' }}
         >
             {/* Header */}
-            <div
-                className="flex items-center justify-between px-4 py-3"
-                style={{ borderBottom: '1px solid #f5f5f5' }}
-            >
-                <div className="flex items-center gap-3">
-                    {/* Flash Sale Title */}
-                    <div className="flex items-center gap-2">
-                        <FontAwesomeIcon
-                            icon={faBolt}
-                            style={{
-                                color: '#ee4d2d',
-                                width: '20px',
-                                height: '20px',
-                            }}
-                        />
-                        <h2
-                            className="font-bold uppercase tracking-wider"
-                            style={{
-                                fontSize: '18px',
-                                color: '#ee4d2d',
-                                letterSpacing: '0.05em',
-                            }}
-                        >
-                            Flash Sale
-                        </h2>
-                    </div>
-
-                    <span style={{ color: '#bdbdbd', fontSize: '14px' }}>
-                        |
-                    </span>
-
-                    {/* Countdown */}
-                    <div className="flex items-end gap-1.5">
-                        <span style={{ fontSize: '12px', color: '#757575' }}>
-                            Kết thúc trong
-                        </span>
-                        <div className="flex items-end gap-1">
-                            {mounted ? (
-                                <>
-                                    <TimeBlock value={h} label="GIỜ" />
-                                    <TimeSeparator />
-                                    <TimeBlock value={m} label="PHÚT" />
-                                    <TimeSeparator />
-                                    <TimeBlock value={s} label="GIÂY" />
-                                </>
-                            ) : (
-                                /* Placeholder khi SSR để tránh hydration mismatch */
-                                <>
-                                    <TimeBlock value={0} label="GIỜ" />
-                                    <TimeSeparator />
-                                    <TimeBlock value={0} label="PHÚT" />
-                                    <TimeSeparator />
-                                    <TimeBlock value={0} label="GIÂY" />
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                <Link
-                    href="/flash-sale"
-                    id="flash-sale-view-all"
-                    className="flex items-center gap-1 text-sm font-medium transition-colors hover:opacity-70"
-                    style={{ color: '#ee4d2d' }}
-                >
-                    Xem tất cả
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        style={{ width: '12px', height: '12px' }}
-                    />
-                </Link>
-            </div>
+            <FlashSaleHeader />
 
             {/* Products Grid */}
             <div

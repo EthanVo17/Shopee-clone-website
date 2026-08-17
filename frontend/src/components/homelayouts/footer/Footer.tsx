@@ -173,7 +173,7 @@ const Footer: React.FC = () => {
 
                     <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
                         <img
-                            src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/be4a6baf24cf853eed97f9e05cca0ea7.png"
+                            src="https://www.pinterest.com/pin/886927720383866042/"
                             alt="Bộ Công Thương"
                             style={{ height: '32px', opacity: 0.7 }}
                             onError={(e) => {
