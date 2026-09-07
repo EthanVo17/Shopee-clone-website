@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 import { categories } from './categories';
 import CategoryHeader from './CategoryHeader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 const CategoryGrid: React.FC = () => {
     return (
@@ -42,6 +44,7 @@ const CategoryGrid: React.FC = () => {
                         >
                             {category.emoji}
                         </div>
+
                         <span
                             className="text-center leading-tight transition-colors duration-200 group-hover:text-[#ee4d2d]"
                             style={{

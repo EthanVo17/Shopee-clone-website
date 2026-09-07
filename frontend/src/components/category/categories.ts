@@ -18,6 +18,7 @@ const categories = [
     { id: '18', name: 'Túi Xách Nữ', emoji: '👜', slug: 'tui-xach' },
     { id: '19', name: 'Thiết Bị Gia Dụng', emoji: '🔌', slug: 'gia-dung' },
     { id: '20', name: 'Hàng Quốc Tế', emoji: '🌍', slug: 'hang-quoc-te' },
+    { id: '21', name: 'Xem thêm', emoji: '>', slug: 'see-more' },
 ];
 
 export { categories };
