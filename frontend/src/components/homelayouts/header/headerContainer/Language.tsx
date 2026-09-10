@@ -1,40 +1,64 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-const LanguageList = [{ name: 'Tiếng Việt' }, { name: 'English' }];
+const LanguageList = [
+    { name: 'Tiếng Việt', key: 'vi' },
+    { name: 'English', key: 'en' },
+];
 
 const Language: React.FC = () => {
     const [showLanguages, setShowLanguages] = React.useState(false);
     const [currentIndex, setCurrentIndex] = React.useState(0);
     const currentLanguage = LanguageList[currentIndex];
+    const handleSelectLanguage = (index: number) => {
+        setCurrentIndex(index);
+        setShowLanguages(false);
+    };
+
     return (
         <div
-            id="language-selector-btn"
-            className="flex items-center gap-1 hover:text-white transition-colors"
+            id="language-selector"
+            className="relative inline-block"
+            onMouseEnter={() => setShowLanguages(true)}
+            onMouseLeave={() => setShowLanguages(false)}
         >
             <button
-                onMouseEnter={() => setShowLanguages(true)}
-                onMouseLeave={() => setShowLanguages(false)}
+                type="button"
+                className="flex items-center gap-1 transition-colors hover:text-white"
             >
                 {currentLanguage.name}
             </button>
-            {showLanguages && (
-                <>
-                    <ul className="bg-white w-[143px] top-[40px] ">
-                        {LanguageList.map((language) => (
-                            <li>
-                                <button className="">{language.name}</button>
-                            </li>
-                        ))}
-                    </ul>
-
-                    <FontAwesomeIcon
-                        icon={faChevronDown}
-                        style={{ width: '10px', height: '10px' }}
-                    />
-                </>
-            )}
+            <ul
+                className={`
+                    absolute right-0 top-full z-10 mt-2 w-52 h-[60px]
+                    border border-gray-200 bg-white p-2 shadow-lg
+                    transition-all duration-200 ease-out
+                    ${
+                        showLanguages
+                            ? 'visible translate-y-0 opacity-100'
+                            : 'invisible -translate-y-2 opacity-0'
+                    }
+                `}
+            >
+                {LanguageList.map((language, index) => (
+                    <li key={language.key} className="w-52 h-[30px] m-[6px]">
+                        <button
+                            type="button"
+                            onClick={() => handleSelectLanguage(index)}
+                            className={`
+                                w-full h-full rounded-md text-left indent-[10px] text-sm
+                                transition-colors hover:text-orange-500
+                                ${
+                                    index === currentIndex
+                                        ? 'font-semibold text-orange-600'
+                                        : 'text-gray-700'
+                                }
+                            `}
+                        >
+                            {language.name}
+                        </button>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };
