@@ -3,8 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 const Notification: React.FC = () => {
+    const NotificationItems = [
+        { title: 'Notification', description: 'Notification', uri: '#' },
+        { title: 'Notification', description: 'Notification', uri: '#' },
+        { title: 'Notification', description: 'Notification', uri: '#' },
+    ];
+
+    const [show, setShow] = React.useState(false);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+
     return (
-        <div className="relative group">
+        <div
+            id="Notification"
+            className="relative group"
+            onMouseEnter={() => setShow(true)}
+            onMouseLeave={() => setShow(false)}
+        >
             <button
                 id="notification-btn"
                 type="button"
@@ -17,8 +31,69 @@ const Notification: React.FC = () => {
                 />
                 <span className="hidden sm:inline">Thông Báo</span>
             </button>
+
+            <div
+                className={`absolute right-0 top-full z-10 mt-2 w-[400px] max-h-[474px]
+                    border border-[1px] border-[#d0d0d0] bg-white p-2 shadow-lg
+                    transition-all duration-200 ease-out pointer ${
+                        show
+                            ? 'visible translate-y-0 opacity-100'
+                            : 'invisible -translate-y-2 opacity-0'
+                    }`}
+            >
+                <h4 className=" flex items-center text-left indent-[12px] w-auto h-[40px] text-[#00000042] text-sm pl-[10px] pr-[10px]">
+                    Thông báo mới nhất
+                </h4>
+
+                {NotificationItems.map((item, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className={`bg-[#fff2ee] hover:bg-white w-full h-[56px] ${
+                                index === currentIndex &&
+                                'visible font-semibold  opacity-[0.7]'
+                            }`}
+                        >
+                            <a
+                                href={item.uri}
+                                type="link"
+                                className={`flex items-center w-full h-full flex mt-[5px] hover:bg-[#fafafa]`}
+                            >
+                                <div
+                                    className="flex justify-center items-center w-[40px] h-[40px] bg-[#f5f5f5] overflow-hidden"
+                                    style={{ marginLeft: '10px' }}
+                                >
+                                    <div className="bg-[url(https://placehold.co/40x40)] no-repeat"></div>
+                                </div>
+                                <div className="mr-[10px]">
+                                    <h5
+                                        className={`rounded-md text-left indent-[10px] text-sm text-black
+                                    transition-colors`}
+                                    >
+                                        {item.title}
+                                    </h5>
+                                    <p className="mb-[5px] text-xs text-[#0000008a] text-left indent-[10px] leading-[15px]">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    );
+                })}
+
+                <a
+                    href="#"
+                    className="inline-flex justify-center items-center text-black text-base font-normal no-underline bg-white w-full h-[40px] hover:bg-[#fafafa]"
+                >
+                    Xem tất cả
+                </a>
+            </div>
         </div>
     );
 };
+
+// setTimeout(() => {
+//     debugger;
+// }, 5000);
 
 export default Notification;
