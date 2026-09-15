@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 const Notification: React.FC = () => {
     const NotificationItems = [
@@ -10,7 +11,6 @@ const Notification: React.FC = () => {
     ];
 
     const [show, setShow] = React.useState(false);
-    const [currentIndex, setCurrentIndex] = React.useState(0);
 
     return (
         <div
@@ -50,8 +50,9 @@ const Notification: React.FC = () => {
                         <div
                             key={index}
                             className={`bg-[#fff2ee] hover:bg-white w-full h-[56px] ${
-                                index === currentIndex &&
-                                'visible font-semibold  opacity-[0.7]'
+                                show
+                                    ? 'visible font-semibold  opacity-[0.7]'
+                                    : 'invisible -translate-y-2 opacity-0 pointer-events-none'
                             }`}
                         >
                             <a
@@ -81,19 +82,15 @@ const Notification: React.FC = () => {
                     );
                 })}
 
-                <a
+                <Link
                     href="#"
                     className="inline-flex justify-center items-center text-black text-base font-normal no-underline bg-white w-full h-[40px] hover:bg-[#fafafa]"
                 >
                     Xem tất cả
-                </a>
+                </Link>
             </div>
         </div>
     );
 };
-
-// setTimeout(() => {
-//     debugger;
-// }, 5000);
 
 export default Notification;

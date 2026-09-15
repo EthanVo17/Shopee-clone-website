@@ -2,13 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faBoxOpen, faDownload } from '@fortawesome/free-solid-svg-icons';
+import Seller from './Seller';
 
 const ConnectSocial: React.FC = () => {
     const user = false;
 
     return (
-        <div className="flex items-center gap-4">
+        <>
             <span className="hidden sm:inline text-white/70">Kết nối</span>
             <a
                 href="https://facebook.com"
@@ -35,38 +35,14 @@ const ConnectSocial: React.FC = () => {
                 />
             </a>
 
-            <span className="text-white/30 hidden sm:inline">|</span>
-
             {user && (
                 <>
-                    <Link
-                        href="#"
-                        id="sell-on-shopee-link"
-                        className="hidden sm:flex items-center gap-1 hover:text-white transition-colors"
-                    >
-                        <FontAwesomeIcon
-                            icon={faBoxOpen}
-                            style={{ width: '13px', height: '13px' }}
-                        />
-                        <span>Kênh người bán</span>
-                    </Link>
-
                     <span className="text-white/30 hidden sm:inline">|</span>
+
+                    <Seller />
                 </>
             )}
-
-            <Link
-                href="#"
-                id="download-app-link"
-                className="hidden sm:flex items-center gap-1 hover:text-white transition-colors"
-            >
-                <FontAwesomeIcon
-                    icon={faDownload}
-                    style={{ width: '13px', height: '13px' }}
-                />
-                <span>Tải ứng dụng</span>
-            </Link>
-        </div>
+        </>
     );
 };
 

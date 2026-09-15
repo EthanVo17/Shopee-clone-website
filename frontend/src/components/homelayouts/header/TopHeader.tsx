@@ -1,18 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faBoxOpen,
-    faDownload,
-    faBell,
-} from '@fortawesome/free-solid-svg-icons';
-import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 import Login from './headerContainer/Login';
 import Register from './headerContainer/Register';
 import Language from './headerContainer/Language';
 import Notification from './headerContainer/Notification';
 import ConnectSocial from './headerContainer/ConnectSocial';
+import DownloadApp from './headerContainer/DownloadApp';
 
 const TopHeader: React.FC = () => {
     return (
@@ -30,7 +23,13 @@ const TopHeader: React.FC = () => {
                 }}
             >
                 {/* Left: Social + Seller + Download */}
-                <ConnectSocial />
+                <div className="flex items-center gap-4">
+                    <ConnectSocial />
+
+                    <span className="text-white/30 hidden sm:inline">|</span>
+
+                    <DownloadApp />
+                </div>
 
                 {/* Right: Notification + Auth */}
                 <div className="flex items-center gap-4">
